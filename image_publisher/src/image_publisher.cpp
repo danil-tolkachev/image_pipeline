@@ -61,6 +61,7 @@ ImagePublisher::ImagePublisher(const rclcpp::NodeOptions & options)
   camera_info_url_ = this->declare_parameter("camera_info_url", std::string(""));
   retry_ = this->declare_parameter("retry", false);
   timeout_ = this->declare_parameter("timeout", 2000);
+  filename_ = this->declare_parameter("filename", "");
 
   auto param_change_callback =
     [this](std::vector<rclcpp::Parameter> parameters) -> rcl_interfaces::msg::SetParametersResult
@@ -100,6 +101,9 @@ ImagePublisher::ImagePublisher(const rclcpp::NodeOptions & options)
       return result;
     };
   on_set_parameters_callback_handle_ = this->add_on_set_parameters_callback(param_change_callback);
+
+  if (!filename_.empty())
+    this->onInit();
 }
 
 void ImagePublisher::reconfigureCallback()
