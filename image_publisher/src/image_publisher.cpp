@@ -140,6 +140,7 @@ void ImagePublisher::doWork()
     if (cap_.isOpened()) {
       if (!cap_.read(image_)) {
         cap_.set(cv::CAP_PROP_POS_FRAMES, 0);
+        return;
       }
     }
     if (flip_image_) {
