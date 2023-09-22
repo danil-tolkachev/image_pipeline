@@ -155,6 +155,9 @@ void ImagePublisher::doWork()
     camera_info_.header.stamp = out_img->header.stamp;
 
     pub_.publish(*out_img, camera_info_);
+    RCLCPP_DEBUG(
+      this->get_logger(), "img data ptr: %p, msg data ptr: %p, msg ptr: %p, enc: %s",
+      image_.data, out_img->data.data(), (void*)(out_img.get()), out_img->encoding.c_str());
   } catch (cv::Exception & e) {
     RCLCPP_ERROR(
       this->get_logger(), "Image processing error: %s %s %s %i",
