@@ -103,7 +103,10 @@ ImagePublisher::ImagePublisher(const rclcpp::NodeOptions & options)
   on_set_parameters_callback_handle_ = this->add_on_set_parameters_callback(param_change_callback);
 
   if (!filename_.empty())
+  {
     this->onInit();
+    this->reconfigureCallback();
+  }
 }
 
 void ImagePublisher::reconfigureCallback()
